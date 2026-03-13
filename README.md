@@ -43,9 +43,11 @@ python val.py
 ```
 ## 📄 Citation
 If you find this work useful in your research, please consider citing our paper:
+```
 @article{yang2026uavdetr,
   title={UAV-DETR: DETR for Anti-Drone Target Detection},
   author={Yang, Jun and Wang, Dong and Yin, Hongxu and Li, Hongpeng and Yu, Jianxiong},
   journal={},
   year={2026}
 }
+```
