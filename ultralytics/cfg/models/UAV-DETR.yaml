@@ -1,0 +1,46 @@
+# Ultralytics YOLO 🚀, AGPL-3.0 license
+# RT-DETR-l object detection model with P3-P5 outputs. For details see https://docs.ultralytics.com/models/rtdetr
+
+# Parameters
+nc: 80  # number of classes
+scales: # model compound scaling constants, i.e. 'model=yolov8n-cls.yaml' will call yolov8-cls.yaml with scale 'n'
+  # [depth, width, max_channels]
+  l: [ 1.00, 1.00, 1024 ]
+
+backbone:
+  # [from, repeats, module, args]
+  - [ -1, 1, ConvNormLayer, [ 32, 3, 2, None, False, 'relu' ] ] # 0-P1/2
+  - [ -1, 1, ConvNormLayer, [ 32, 3, 1, None, False, 'relu' ] ] # 1
+  - [ -1, 1, ConvNormLayer, [ 64, 3, 1, None, False, 'relu' ] ] # 2
+  - [ -1, 1, nn.MaxPool2d, [ 3, 2, 1 ] ] # 3-P2/4
+
+  # [ch_out, block_type, block_nums, stage_num, act, variant]
+  - [ -1, 1, Blocks, [ 64, BasicBlock_WTConv, 2, 2, 'relu' ] ] # 4
+  - [ -1, 1, Blocks, [ 128, BasicBlock_WTConv, 2, 3, 'relu' ] ] # 5-P3/8
+  - [ -1, 1, Blocks, [ 256, BasicBlock_WTConv, 2, 4, 'relu' ] ] # 6-P4/16
+  - [ -1, 1, Blocks, [ 512, BasicBlock_WTConv, 2, 5, 'relu' ] ] # 7-P5/32
+
+head:
+  - [ -1, 1, Conv, [ 256, 1, 1, None, 1, 1, False ] ]  # 8 input_proj.2
+  - [-1, 1, TransformerEncoderLayer_SWSA, [1024, 8]] # 9
+  - [ -1, 1, Conv, [ 256, 1, 1 ] ]  # 10, Y5, lateral_convs.0
+
+  - [ [ -1, 6 ], 1, SBA, [ ] ] # 11
+  - [-1, 1, RepNCSPELAN4, [256, 128, 64, 1]]    # X3 (20), fpn_blocks.1
+
+  - [ [ -1, 5 ], 1, SBA, [ ] ] # 13
+  - [-1, 1, RepNCSPELAN4, [256, 128, 64, 1]]    # X3 (20), fpn_blocks.1
+
+  - [ [ -1, 4 ], 1, SBA, [ ] ] # 15
+  - [-1, 1, RepNCSPELAN4, [256, 128, 64, 1]]    # X3 (20), fpn_blocks.1
+
+  - [ [ -1, 14 ], 1, SBA, [ ] ] # 17
+  - [-1, 1, RepNCSPELAN4, [256, 128, 64, 1]]    # X3 (20), fpn_blocks.1
+
+  - [ [ -1, 12 ], 1, SBA, [ ] ] # 19
+  - [-1, 1, RepNCSPELAN4, [256, 128, 64, 1]]    # X3 (20), fpn_blocks.1
+
+  - [ [ -1, 10 ], 1, SBA, [ ] ] # 21
+  - [-1, 1, RepNCSPELAN4, [256, 128, 64, 1]]    # X3 (20), fpn_blocks.1
+
+  - [ [ 16, 18, 20, 22 ], 1, RTDETRDecoder, [ nc, 128, 300, 4, 8, 3 ] ]  # Detect(P2, P3, P4, P5)
