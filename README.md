@@ -28,7 +28,7 @@ To ensure the reproducibility of our experimental results, we recommend configur
 
 ## 📦 Dataset Preparation
 
-The datasets used in this study, including the **UAV Dataset** and **ANTI-DUT Dataset**, are available for download.
+Currently, the **UAV Dataset** used in this study is publicly available. 
 
 - **Download Link:** [Baidu Netdisk](https://pan.baidu.com/s/18WVDiKxt7IbKX2fxAVBmXg?pwd=sp7u)
 - **Extraction Code:** `sp7u`
