@@ -1,0 +1,11 @@
+path: D:/project/UAV-DETR/datasets/uav_dataset
+train: train/images
+val: valid/images
+test: test/images
+
+nc : 1
+# Classes
+names:
+  0: uav
+
+
