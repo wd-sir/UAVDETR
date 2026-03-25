@@ -1,12 +1,12 @@
 # UAV-DETR: DETR for Anti-Drone Target Detection
 
 ![Framework Overview](ultralytics/cfg/framework.png)
+[![arXiv](https://img.shields.io/badge/arXiv-2603.22841-b31b1b.svg)](https://arxiv.org/abs/2603.22841)
 
-Welcome to the official repository for **UAV-DETR**. This project implements the framework described in our paper for robust anti-drone target detection using Transformers.
-
+Welcome to the official repository for **UAV-DETR**. This project implements the framework described in our paper, **[UAV-DETR: DETR for Anti-Drone Target Detection](https://arxiv.org/abs/2603.22841)**, for robust anti-drone target detection using Transformers.
 > 🚧 **Project Status:** 
 > - ✅ **Dataset:** Publicly available (see below).
-> - ⏳ **Source Code & Models:** Being finalized and will be released shortly. Please stay tuned!
+> - ✅ **Source Code & Models:** **Now Released!** You can train and evaluate the model immediately.
 
 ## 📊 Performance Comparison
 
