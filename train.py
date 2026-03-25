@@ -9,7 +9,7 @@ warnings.filterwarnings('ignore')
 from ultralytics import RTDETR
 
 if __name__ == '__main__':
-    model = RTDETR('datasets/uav_dataset/UAV-DETR.yaml')
+    model = RTDETR('ultralytics/cfg/models/UAV-DETR.yaml')
     # model.load('') # loading pretrain weights
     model.train(data='datasets/uav_dataset/data.yaml',
                 cache=False,
